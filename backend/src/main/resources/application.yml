@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: track2act-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/track2act_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+jwt:
+  secret: mySecretKeyMustBeAtLeast32CharsLongForHS512Algorithm1234567890
+  expiration: 86400000
+
+logging:
+  level:
+    com.track2act: DEBUG
+    org.springframework.security: DEBUG
+
