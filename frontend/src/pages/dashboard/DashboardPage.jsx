@@ -7,6 +7,7 @@ import { CompliancePanel } from "@/components/dashboard/compliance-panel"
 import { AuditLog } from "@/components/dashboard/audit-log"
 import { TaskExecutionFlow } from "@/components/dashboard/task-execution-flow"
 
+
 export default function DashboardPage() {
   return (
     <div className="p-4 lg:p-6 space-y-6">
