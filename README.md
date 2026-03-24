@@ -11,8 +11,8 @@
 
 ### Prerequisites
 - Java 17+ & Maven
-- Node.js 18+
-- PostgreSQL (or H2 for dev)
+- Reactjs
+- MySQL
 
 ### 1. Backend (Spring Boot)
 ```bash
@@ -43,10 +43,10 @@ Required for signup/login (shown on signup page):
 ## 🏗️ Tech Stack
 
 ```
-Frontend: React 18 + Vite + TypeScript + shadcn/ui + Framer Motion + Lucide React
-Backend:  Spring Boot 3 + JPA/Hibernate + Spring Security (JWT) + Maven
-Database: PostgreSQL / H2 (dev)
-Other:    Axios, Sonner (toasts), TailwindCSS
+Frontend: React 19 + Vite 6 + shadcn/ui + TailwindCSS v4 + Framer Motion 11 + Lucide React
+Backend:  Spring Boot 3.2.1 + JPA/Hibernate + Spring Security (JWT) + Lombok + Maven
+Database: MySQL 8 (Flyway migrations)
+Other:    Axios, Sonner (toasts), React Router, React Hook Form, Zod
 ```
 
 ## 📋 Folder Structure
@@ -143,12 +143,12 @@ npm run build
 ## 📱 Screenshots
 *(Add dashboard/map screenshots here in future)*
 
-## 🚀 Roadmap
-- [ ] Push notifications (disruptions)
-- [ ] Mobile app
-- [ ] Advanced analytics/ML predictions
-- [ ] Multi-company tenant isolation
-- [ ] IoT device integration
+## 🔮 Future Integrations
+- Push notifications for disruptions
+- Mobile app (React Native)
+- Advanced analytics & ML predictions
+- Multi-company tenant isolation
+- Real IoT device/GPS hardware integration
 
 ## 🤝 Contributing
 Fork → Branch → PR. Follow conventional commits.
