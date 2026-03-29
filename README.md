@@ -1,161 +1,219 @@
-# 🛤️ Track2Act - Real-Time Shipment Tracking for Indian Logistics
+# 🌐 Track2Act: Next-Generation AI Supply Chain & Logistics Ecosystem
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=spring-boot)](https://spring.io/projects/spring-boot)
-[![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://react.dev)
-[![Java](https://img.shields.io/badge/Java-17+-007396?logo=java)](https://openjdk.org)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
+<div align="center">
 
-**Track2Act** is a production-grade, full-stack supply chain intelligence platform designed for Indian logistics. Featuring **real-time GPS tracking**, **AI-powered decision intelligence**, **compliance guardrails**, and a **command-center style dashboard** with live India map visualization.
+![Product Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge)
+![AI Integrations](https://img.shields.io/badge/AI-HuggingFace%20Powered-purple?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/Stack-React%2018%20|%20Spring%20Boot%203-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## 🚀 Quick Start
+**Real-time shipment tracking, predictive AI decision-making, and intelligent SaaS logistics management for modern enterprises.**
 
-### Prerequisites
-- Java 17+ & Maven
-- Reactjs
-- MySQL
+[Features](#-core-features) • [AI Integration](#-ai-decision-intelligence) • [Architecture](#%EF%B8%8F-system-architecture) • [Getting Started](#-deep-dive-installation--setup) • [API Reference](#-comprehensive-api-documentation)
 
-### 1. Backend (Spring Boot)
-```bash
-cd backend
-mvn spring-boot:run
-```
-**Backend runs on http://localhost:8080**
+</div>
 
-### 2. Frontend (React + Vite)
-```bash
-cd frontend
-npm install
-npm run dev
-```
-**Frontend runs on http://localhost:5173**
+---
 
-### Company Access Codes
-Required for signup/login (shown on signup page):
+## 🚀 Overview
 
-| Code            | Company                  |
-|-----------------|--------------------------|
-| T2A-ALPHA-001   | Logistics Corp India     |
-| T2A-BETA-002    | FastMove Enterprises     |
-| T2A-GAMMA-003   | IndiaShip Solutions      |
-| T2A-DELTA-004   | CargoTech Systems        |
-| T2A-OMEGA-005   | SupplyEdge Networks      |
+**Track2Act** transcends traditional logistics software. It is an **enterprise-ready, full-stack Platform-as-a-Service (PaaS)** enabling end-to-end visibility of regional and cross-border supply chains. By merging dynamic GPS telemetry with leading AI foundation models (via the Hugging Face Inference API), Track2Act automates routing exceptions, manages driver fleets, and presents analytics through a stunning, glassmorphism-infused user interface.
 
-## 🏗️ Tech Stack
+Whether you're moving temperature-sensitive pharmaceuticals or bulk manufacturing materials, Track2Act manages the complexity of the modern supply chain across six distinct user roles.
 
-```
-Frontend: React 19 + Vite 6 + shadcn/ui + TailwindCSS v4 + Framer Motion 11 + Lucide React
-Backend:  Spring Boot 3.2.1 + JPA/Hibernate + Spring Security (JWT) + Lombok + Maven
-Database: MySQL 8 (Flyway migrations)
-Other:    Axios, Sonner (toasts), React Router, React Hook Form, Zod
-```
+---
 
-## 📋 Folder Structure
-```
-track2act-new/
-├── backend/          # Spring Boot API
-│   ├── src/main/java/com/track2act/
-│   │   ├── entity/   # Shipment, User, Location, TrackingUpdate
-│   │   ├── controller/ # AuthController, ShipmentController, LocationController
-│   │   ├── service/  # AuthService, ShipmentService
-│   │   └── dto/      # Request/Response DTOs
-│   └── pom.xml
-├── frontend/         # React SPA
-│   ├── src/
-│   │   ├── pages/dashboard/ # DashboardPage, LiveMapPage, NewShipmentPage
-│   │   ├── components/dashboard/ # StatsCards, LiveMap, DecisionIntelligence, etc.
-│   │   ├── services/ # shipmentService.js
-│   │   └── context/  # AuthContext
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
-```
+## 🧠 AI Decision Intelligence
+
+### *Powered by Hugging Face*
+Track2Act utilizes Generative AI to act as an automated supply chain analyst. 
+
+The backend routinely monitors active shipments (via the **Shipment Agent** engine) and passes context—including origin, destination, cargo type, and status delays—to large language models (like `Mixtral-8x7B-Instruct`) hosted on Hugging Face.
+
+**Capabilities:**
+- **Route Deviation Analytics:** Automatically processes traffic or weather alerts to suggest alternative routes, complete with cost vs. time impact calculations.
+- **Carrier Switching:** Predicts and mitigates mechanical breakdown failures by suggesting fallback carriers.
+- **Inventory Reallocation:** Suggests hub-to-hub movements of stock based on dynamic regional demand spikes.
+- **Risk Calculation:** Calculates confidence scores (0-100%) for every automated decision and checks actions against pre-configured enterprise guardrails.
+
+---
 
 ## ✨ Core Features
 
-### Authentication & Users
-- JWT-based auth with role-based access
-- Company-specific signup (5 predefined companies)
-- Protected dashboard routes
+The platform operates heavily on an RBAC (Role-Based Access Control) system, providing tailored dashboards and tailored privileges.
 
-### Shipment Management
-| Feature | Description |
-|---------|-------------|
-| **CRUD** | Create/read/update shipments with cargo details, origins/destinations, GPS, driver info |
-| **Statuses** | ON_TIME, DELAYED, AT_RISK with progress tracking (0-100%) |
-| **Real-time Updates** | GPS coordinates, tracking history |
+### 🌐 Universal Tracking (Public)
+- **Zero-Friction Monitoring:** Anyone with a tracking number can view live GPS coordinates and shipment history on an interactive 2D Map (powered by React Leaflet).
+- **Milestone History:** A chronological audit of every step in the logistics chain.
 
-### **Dashboard - Command Center** ⚡ (Primary Focus)
-Modern, real-time interface with 7+ interactive panels:
+### 🏢 Company Officer / Port Manager
+- **Fleet Command Center:** Create complex shipments, assign them dynamically to available drivers, and manage global capacity.
+- **Intelligent Dashboard:** View active operations overlaid with the AI Decision Intelligence engine, approving or rejecting automated interventions.
+- **Task Delegation:** Frictionless assignment notifications to Drivers.
 
-| Panel | Key Features |
-|-------|--------------|
-| **Stats Cards** | Active Shipments (2,847), In Transit (1,423), Disruptions (23), On-Time (94.7%) with trends |
-| **Quick Actions** | New Shipment, Refresh Data, Export, Filters |
-| **Live Map** | SVG India map w/ animated routes, ports/hubs, disruptions. Search/filter shipments by ID/status. GPS dots pulsing by progress/status. Layers (ports/hubs/disruptions), zoom. Detailed sidebar for selected shipment. |
-| **Decision Intelligence** | AI recommendations for disruptions (e.g., 'Reroute via Mundra' vs Wait/Air). Cost/delay/risk/confidence scores. 'Execute' button. |
-| **Compliance Panel** | Guardrails (budget/deadline/policy/approval). Compliance score (e.g., 75%). Edge cases auto-resolved. |
-| **Task Execution Flow** | Pipeline viz: Detection → Impact → Decision → Action → Outcome. Live progress. |
-| **Audit Log** | Real-time events (disruptions/decisions/actions). Expandable details w/ reasoning, guardrails, alternatives. Search/export. |
+### 🚚 Driver Ecosystem
+- **Live Task Polling:** A dedicated workspace tracking assigned routes and delivery checkpoints.
+- **Geolocation Updates:** Submit real-time positional data pushing events into the central Apache/Kafka-inspired data bus.
+- **Proof of Delivery:** Update statuses to `DELIVERED`, `DELAYED`, or `AT_RISK` directly from the mobile-first progressive web views.
 
-**Live Map Deep Dive**:
-- Interactive SVG map of India (ports: Mumbai, Chennai; hubs).
-- Shipment routes as curved paths (color-coded by status, dashed progress).
-- Pulsing GPS markers, disruptions (weather/traffic/accident icons).
-- Sidebar: Shipment list (progress bars, search/filter), selected shipment details (route, driver, actions).
-
-### API Endpoints (Backend)
-```
-Auth:    POST /api/auth/register, /api/auth/login
-Shipments: GET/POST /api/shipments, /api/shipments/active, /api/shipments/{id}
-Locations: GET /api/locations
-User:    GET /api/me
-```
-**Responses**: Standardized `ApiResponse<T>` with data/errors.
-
-## 🎯 Usage Flow
-1. **Signup/Login** with company code → Redirect to `/dashboard`
-2. **Dashboard** loads real-time stats/map/shipments
-3. **Create Shipment** → `/dashboard/new-shipment` form (cargo, locations, GPS)
-4. **Monitor** live GPS on map, AI suggestions for issues
-5. **Audit** all decisions/actions in log
-
-## 🛠️ Development
-
-### Backend
-```bash
-cd backend
-mvn clean install
-mvn spring-boot:run
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev  # http://localhost:5173
-npm run build
-```
-
-### Environment
-- Backend: `application.yml` (DB config)
-- Frontend: `.env` for API_BASE
-
-## 📱 Screenshots
-*(Add dashboard/map screenshots here in future)*
-
-## 🔮 Future Integrations
-- Push notifications for disruptions
-- Mobile app (React Native)
-- Advanced analytics & ML predictions
-- Multi-company tenant isolation
-- Real IoT device/GPS hardware integration
-
-## 🤝 Contributing
-Fork → Branch → PR. Follow conventional commits.
-
-## 📄 License
-MIT
+### 👑 System Administrator
+- **God-Mode Data Grid:** Full visibility into the user pool.
+- **Security & Audits:** Monitor login history, revoke compromised JWT tokens, and force-kill specific sessions.
+- **Analyst Reporting:** Export granular analytics and telemetry data.
 
 ---
-**Built with ❤️ for Indian Logistics Revolution**
 
+## 🏗️ System Architecture
+
+Track2Act is built as a highly uncoupled Monolith (ready for Microservices migration), communicating strictly over REST.
+
+```mermaid
+graph TD;
+    Client[React/Tailwind Frontend] -->|REST APIs + JWT| Gateway(Spring Boot API Gateway);
+    Gateway --> Auth[Security / JWT Filter];
+    Auth --> Shipment[Shipment Service];
+    Auth --> UserSys[User Management];
+    Shipment --> AI[AI Decision Service];
+    AI -->|HTTPS / Bearer| HF[Hugging Face Inference API];
+    Shipment --> DB[(MySQL / PostgreSQL)];
+    UserSys --> DB;
+```
+
+### Frontend Breakdown
+- **React 18 & Vite:** Lightning-fast HMR and minimal bundle sizes.
+- **Tailwind CSS & shadcn/ui:** Utility-first CSS coupled with extremely customizable primitive components.
+- **Framer Motion:** Every interaction (from card expansions to page routing) feels fluid, spatial, and inherently premium.
+- **Axios Interceptors:** Global token hydration on every outbound API request.
+
+### Backend Breakdown
+- **Java 17 & Spring Boot 3:** The industry standard for robust, type-safe API generation.
+- **Spring Security + JWT:** Stateless authentication ensuring horizontal scaling capabilities without session affinity issues.
+- **Spring Data JPA:** Abstracted ORM mapped tightly to our Relational entities.
+
+---
+
+## 🛠️ Deep-Dive Installation & Setup
+
+### Prerequisites
+- **Node.js**: v18.0.0+
+- **Java Development Kit (JDK)**: v17+
+- **Maven**: v3.8+
+- **MySQL**: v8.0+ 
+- **Hugging Face Account**: You need an active Inference API key.
+
+### Step 1: Database Setup
+1. Open your MySQL client and create the primary database:
+   ```sql
+   CREATE DATABASE track2act_db;
+   ```
+
+### Step 2: Backend Configuration
+1. Navigate to the backend directory:
+   ```bash
+   cd track2act/backend
+   ```
+2. Open `src/main/resources/application.yml` and configure your credentials. **Crucially, insert your Hugging Face API key** to enable the AI engine:
+   ```yaml
+   spring:
+     datasource:
+       url: jdbc:mysql://localhost:3306/track2act_db
+       username: root
+       password: root
+   
+   huggingface:
+     api-key: "YOUR_HF_API_KEY_HERE"
+     api-url: "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1"
+   ```
+3. Boot the API server:
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
+   > The backend will spin up and expose REST endpoints at `http://localhost:8080`.
+
+### Step 3: Frontend Configuration
+1. Navigate to the React workspace:
+   ```bash
+   cd track2act/frontend
+   ```
+2. Install npm dependencies:
+   ```bash
+   npm install
+   ```
+3. Ignite the development server:
+   ```bash
+   npm run dev
+   ```
+   > The UI will compile instantly and deploy locally at `http://localhost:5173`.
+
+### Environment Credentials
+The system comes with a seeded initial Super-Admin user allowing you to bypass the need to touch SQL manually:
+- **Email:** `shivansh@admin.com`
+- **Password:** `9820689183`
+
+---
+
+## 📚 Comprehensive API Documentation
+
+### System Core & Auth
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `POST` | `/api/auth/register` | Register a new user | ❌ |
+| `POST` | `/api/auth/login` | Retrieve a JWT Bearer Token | ❌ |
+| `GET` | `/api/auth/me` | Hydrate the current user session context | ✅ |
+
+### Logistics & Tracking
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/track?id={hash}` | Public anonymous query string resolver | ❌ |
+| `GET` | `/api/shipments/active`| Retrieve ongoing logistics | ✅ (Company/Admin) |
+| `POST` | `/api/shipments` | Ingest a new shipment into the DB | ✅ (Company) |
+| `GET` | `/api/shipments/driver/{id}` | Driver's assigned payload list | ✅ (Driver) |
+| `POST`| `/api/shipments/location-update`| Push GPS telemetry to the shipment ledger | ✅ (Driver) |
+
+### Artificial Intelligence
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/api/decisions` | Queries the Hugging Face AI to dynamically generate recommendations based on live shipment variables. | ✅ (Company/Admin) |
+
+---
+
+## 🧪 Validating the AI Integration
+
+To successfully test the newly integrated predictive AI system:
+1. Login as the **Company Officer** (or Admin).
+2. Ensure you have at least 1-3 active shipments in the database possessing a status of either `IN_TRANSIT`, `DELAYED`, or `AT_RISK`.
+3. Navigate to the **Decision Intelligence** sidebar tab.
+4. The system will hold in a `(loading/generating)` state while the Java Spring Boot backend fires a payload via REST to your configured Hugging Face model.
+5. Watch as the UI populates with multi-variable JSON recommendations including *Pros*, *Cons*, *Confidence Metrics*, and *Implementation Risks*.
+
+---
+
+## 🗺️ Long-Term Roadmap
+
+### Phase 2: Q3 Edge Analytics
+- [ ] Migrate AI polling from `HTTP GET` calls to a real-time WebSocket connection.
+- [ ] Integrate Stripe for programmatic billing of complex multi-carrier shipments.
+- [ ] Implement Redis caching on the AI endpoints to prevent Hugging Face rate limits on frequent dashboard reloads.
+
+### Phase 3: Q4 Mobile & IoT Connect
+- [ ] Stand up a React Native client for Drivers featuring background GPS tracking (bypassing battery management limiters).
+- [ ] Physical BLE (Bluetooth Low Energy) beacon support for validating cargo container integrity.
+
+---
+
+## 🤝 Contribution Guidelines
+
+This repository relies on community excellence. To contribute:
+1. Fork the `track2act-v1-main` repository.
+2. Initialize a branch adhering to Semantic Versioning formatting: `git checkout -b fix/auth-token-refresh` or `git checkout -b feat/ai-caching`.
+3. Commit tightly scoped changes with declarative commit messages.
+4. Issue your Pull Request against the `develop` trunk.
+
+**For critical security disclosures (JWT leaks, RBAC bypasses), please contact support directly rather than opening a public issue.**
+
+---
+
+<div align="center">
+<p>Developed with ❤️ by the Track2Act Engineering Team.</p>
+</div>
