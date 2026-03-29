@@ -1,22 +1,4 @@
-# Maven / Java / Spring Boot
-backend/target/
-backend/.mvn/
-!backend/.mvn/wrapper/maven-wrapper.jar
-**/pom.xml.tag
-**/pom.xml.releaseBackup
-**/pom.xml.versionsBackup
-**/pom.xml.next
-**/release.properties
-**/dependency-reduced-pom.xml
-**/*.iml
-**/maven*.xml
-.idea/
-*.iws
-*.ipr
-*.class
-[Oo]bj/
-[Ll]og/
-.mvn/
+
 
 # Node / Vite / React
 frontend/node_modules/
@@ -107,6 +89,3 @@ temp/
 *.sqlite
 *.sql
 
-# Spring Boot
-/application*.yml
-!/backend/src/main/resources/application.yml

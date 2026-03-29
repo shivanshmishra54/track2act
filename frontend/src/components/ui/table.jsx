@@ -81,12 +81,32 @@ function TableCell({ className, ...props }) {
     <td
       data-slot="table-cell"
       className={cn(
-        'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] relative',
         className,
       )}
       {...props}
     />
   )
+}
+
+function TableCellActions({ children }) {
+  return (
+    <div className="flex items-center gap-1">
+      {children}
+    </div>
+  )
+}
+
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCellActions,
+  TableCaption,
 }
 
 function TableCaption({

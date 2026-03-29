@@ -26,21 +26,33 @@ export function AuthProvider({ children }) {
     const response = await res.json()
     if (!res.ok) throw new Error(response.message || "Login failed")
     localStorage.setItem("token", response.data.token)
-    setUser(response.data)
-    return response.data
+    const userData = {
+      id: response.data.userId,
+      fullName: response.data.fullName,
+      email: response.data.email,
+      role: response.data.role,
+    }
+    setUser(userData)
+    return userData
   }
 
-    const signup = async (fields) => {
+  const signup = async (fields) => {
     const res = await fetch(`${API}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fullName: fields.name, email: fields.email, password: fields.password, role: fields.role }),
+      body: JSON.stringify({ fullName: fields.fullName, email: fields.email, password: fields.password, role: fields.role }),
     })
     const response = await res.json()
     if (!res.ok) throw new Error(response.message || "Signup failed")
     localStorage.setItem("token", response.data.token)
-    setUser(response.data)
-    return response.data
+    const userData = {
+      id: response.data.userId,
+      fullName: response.data.fullName,
+      email: response.data.email,
+      role: response.data.role,
+    }
+    setUser(userData)
+    return userData
   }
 
   const logout = async () => {

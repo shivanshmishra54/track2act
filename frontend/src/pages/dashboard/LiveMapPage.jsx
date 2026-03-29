@@ -38,7 +38,8 @@ import {
 } from "@/components/ui/sheet"
 import { Checkbox } from "@/components/ui/checkbox"
 import { shipmentService } from "@/services/shipmentService"
-import { toast } from "sonner" // assume shadcn toaster available
+import { useToast } from "@/hooks/use-toast"
+import { formatDateTime } from "@/lib/format.js"
 
 // India geo bounds for SVG mapping (viewBox 0-100)
 const INDIA_BOUNDS = {
@@ -86,7 +87,10 @@ export default function LiveMapPage() {
     } catch (err) {
       const msg = err.response?.data?.message || err.message
       setError(msg)
-      toast.error("Failed to fetch data: " + msg)
+      toast({
+        title: "Error",
+        description: msg,
+      })
     } finally {
       setLoading(false)
     }
@@ -537,7 +541,7 @@ export default function LiveMapPage() {
                   <div>
                     <span className="text-muted-foreground block mb-1">ETA</span>
                     <span className="font-medium">
-                      {selectedShipment.estimatedArrival ? new Date(selectedShipment.estimatedArrival).toLocaleString() : 'N/A'}
+                      {formatDateTime(selectedShipment.estimatedArrival)}
                     </span>
                   </div>
                   <div>

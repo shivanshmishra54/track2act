@@ -23,4 +23,5 @@ export const shipmentService = {
   getShipment: (id) => api.get(`/shipments/${id}`).then(res => res.data.data),
   createShipment: (data) => api.post('/shipments', data).then(res => res.data.data),
   getLocations: () => api.get('/locations').then(res => res.data.data),
+  getDashboardStats: () => api.get('/shipments/stats').then(res => res.data.data),
 };

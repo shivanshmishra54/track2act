@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { aiService } from "@/services/aiService"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   Brain, 
@@ -34,114 +35,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
-const decisions = [
-  {
-    id: "DEC-001",
-    title: "Route Deviation for SHP-003",
-    context: "Heavy rainfall detected on NH-44 between Hyderabad and Bangalore. Current route shows 85% chance of 4+ hour delay. Cargo: Pharmaceuticals (temperature-sensitive).",
-    shipmentId: "SHP-003",
-    urgency: "high",
-    status: "pending",
-    timestamp: "2 minutes ago",
-    aiAnalysis: "Based on real-time weather data and historical patterns, I recommend Route A (via Anantapur) as it avoids the affected zone while maintaining cold chain integrity. The alternate route adds 45km but has clear weather forecasts for the next 8 hours.",
-    options: [
-      {
-        id: "opt-1",
-        title: "Route A: Via Anantapur",
-        description: "Bypass affected area through Anantapur district",
-        impact: { cost: "+₹12,000", delay: "+45min", risk: "Low" },
-        pros: ["Avoids weather zone", "Well-maintained highway", "Multiple fuel stops"],
-        cons: ["45km longer", "Additional toll charges"],
-        confidence: 92,
-        recommended: true,
-      },
-      {
-        id: "opt-2",
-        title: "Route B: Wait & Proceed",
-        description: "Wait 2-3 hours for weather to clear, then continue original route",
-        impact: { cost: "+₹5,000", delay: "+3h", risk: "Medium" },
-        pros: ["Shorter distance", "Familiar route for driver"],
-        cons: ["Uncertain weather clearance", "Potential cold chain risk", "Client deadline at risk"],
-        confidence: 65,
-      },
-      {
-        id: "opt-3",
-        title: "Route C: Air Freight Last Mile",
-        description: "Transfer cargo to air freight from nearest airport",
-        impact: { cost: "+₹85,000", delay: "-2h", risk: "Low" },
-        pros: ["Fastest delivery", "Guaranteed cold chain", "Weather independent"],
-        cons: ["High cost", "Transfer logistics complexity"],
-        confidence: 88,
-      },
-    ],
-    guardrails: [
-      { rule: "Budget variance < 15%", status: "pass" },
-      { rule: "Cold chain maintenance", status: "warn" },
-      { rule: "Delivery deadline compliance", status: "pass" },
-    ],
-  },
-  {
-    id: "DEC-002",
-    title: "Carrier Switch for SHP-007",
-    context: "Current carrier reporting mechanical issues. Alternative carriers available with varying capacity and rates.",
-    shipmentId: "SHP-007",
-    urgency: "medium",
-    status: "pending",
-    timestamp: "15 minutes ago",
-    aiAnalysis: "Carrier Alpha Transport has the best combination of immediate availability, competitive pricing, and reliability score (4.8/5). They have successfully handled similar cargo 47 times in the past 6 months.",
-    options: [
-      {
-        id: "opt-1",
-        title: "Alpha Transport",
-        description: "Premium carrier with immediate availability",
-        impact: { cost: "+₹8,000", delay: "+1h", risk: "Low" },
-        pros: ["High reliability score", "GPS tracking", "Insurance included"],
-        cons: ["Slight premium", "1 hour pickup delay"],
-        confidence: 89,
-        recommended: true,
-      },
-      {
-        id: "opt-2",
-        title: "Beta Logistics",
-        description: "Budget option with next-day pickup",
-        impact: { cost: "-₹3,000", delay: "+12h", risk: "Medium" },
-        pros: ["Cost savings", "Good capacity"],
-        cons: ["Next day pickup only", "Lower reliability score"],
-        confidence: 72,
-      },
-    ],
-    guardrails: [
-      { rule: "Carrier reliability > 4.0", status: "pass" },
-      { rule: "Insurance coverage adequate", status: "pass" },
-    ],
-  },
-  {
-    id: "DEC-003",
-    title: "Inventory Reallocation",
-    context: "Demand surge detected in Pune region. Current stock levels insufficient to meet projected orders.",
-    shipmentId: "INV-045",
-    urgency: "low",
-    status: "auto-executed",
-    timestamp: "1 hour ago",
-    aiAnalysis: "Auto-executed based on pre-approved rules. Transferred 500 units from Mumbai warehouse to Pune hub. Action within delegated authority limits.",
-    options: [
-      {
-        id: "opt-1",
-        title: "Transfer from Mumbai",
-        description: "Reallocate 500 units from Mumbai warehouse",
-        impact: { cost: "+₹15,000", delay: "N/A", risk: "Low" },
-        pros: ["Closest warehouse", "Same-day transfer possible"],
-        cons: ["Reduces Mumbai buffer stock"],
-        confidence: 95,
-        recommended: true,
-      },
-    ],
-    guardrails: [
-      { rule: "Buffer stock maintained > 20%", status: "pass" },
-      { rule: "Transfer quantity < auto-approval limit", status: "pass" },
-    ],
-  },
-]
+// Removed static mock decisions array
 
 const pastDecisions = [
   { id: "DEC-098", title: "Emergency reroute via Nashik", status: "approved", outcome: "success", savings: "₹45,000" },
@@ -151,10 +45,31 @@ const pastDecisions = [
 ]
 
 export default function DecisionIntelligencePage() {
-  const [selectedDecision, setSelectedDecision] = useState(decisions[0])
+  const [decisions, setDecisions] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [selectedDecision, setSelectedDecision] = useState(null)
   const [selectedOption, setSelectedOption] = useState(null)
   const [feedback, setFeedback] = useState("")
   const [filter, setFilter] = useState("all")
+
+  const fetchDecisions = async () => {
+    setLoading(true)
+    try {
+      const data = await aiService.getDecisions()
+      setDecisions(data)
+      if (data && data.length > 0) {
+        setSelectedDecision(data[0])
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchDecisions()
+  }, [])
 
   const filteredDecisions = decisions.filter(d => {
     if (filter === "all") return true
@@ -163,6 +78,17 @@ export default function DecisionIntelligencePage() {
 
   const handleApprove = (optionId) => {
     setSelectedOption(optionId)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-[80vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw className="w-8 h-8 text-primary animate-spin" />
+          <p className="text-muted-foreground animate-pulse">Generating AI Decisions...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -193,8 +119,8 @@ export default function DecisionIntelligencePage() {
             <History className="w-4 h-4 mr-2" />
             History
           </Button>
-          <Button>
-            <RefreshCw className="w-4 h-4 mr-2" />
+          <Button onClick={fetchDecisions} disabled={loading}>
+            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
         </div>
