@@ -18,12 +18,10 @@ public class MeControl {
     @GetMapping
     public ResponseEntity<ApiResponse> getCurrentUser(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        UserDTO userDTO = new UserDTO(
-            userPrincipal.getId(),
-            userPrincipal.getFullName(),
-            userPrincipal.getEmail(),
-            userPrincipal.getRole().name()
-        );
+
+        // ✅ Correct way: use factory method instead of invalid constructor
+        UserDTO userDTO = UserDTO.fromUserPrincipal(userPrincipal);
+
         log.info("Me endpoint called for user: {}", userPrincipal.getEmail());
         return ResponseEntity.ok(ApiResponse.success("User fetched", userDTO));
     }

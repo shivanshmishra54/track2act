@@ -36,11 +36,19 @@ public class AuthService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .isActive(true)
                 .build();
 
         userRepository.save(user);
 
+        // Generate token after registration
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
+        String jwt = jwtUtils.generateToken(authentication);
+
         AuthResponse response = new AuthResponse();
+        response.setToken(jwt);
         response.setUserId(user.getId());
         response.setFullName(user.getFullName());
         response.setEmail(user.getEmail());
